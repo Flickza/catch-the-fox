@@ -30,35 +30,6 @@ const aggregateCartItems = (cartItems: Product[]): AggregatedProduct[] => {
 
 export type AggregatedProduct = Product & { count: number };
 
-type Product = {
-  stock: number;
-  size: string;
-  name: string;
-  imgUrl: string;
-  price: number;
-  currency: string;
-  id: BigInt;
-};
-
-const aggregateCartItems = (cartItems: Product[]): AggregatedProduct[] => {
-  const aggregationMap = new Map<string, AggregatedProduct>();
-
-  cartItems.forEach((item) => {
-    const key = `${item.id}-${item.size}`;
-    const existing = aggregationMap.get(key);
-
-    if (existing) {
-      existing.count += 1;
-    } else {
-      aggregationMap.set(key, { ...item, count: 1 });
-    }
-  });
-
-  return Array.from(aggregationMap.values());
-};
-
-export type AggregatedProduct = Product & { count: number };
-
 export type CartState = {
   count: number;
   cart: Product[];
